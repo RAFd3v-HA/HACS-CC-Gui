@@ -17,6 +17,3 @@ Domain und Schnittstellen bleiben `couch_control`. Dadurch bleibt die bestehende
 
 Die Auswahl erfolgt nacheinander über Bereiche, Geräte und einzelne Entitäten.
 
-## Hinweis
-
-Vor Veröffentlichung in `manifest.json` die Dokumentations-URL auf das eigene Repository ändern. Der ursprüngliche Code stammt aus `Lucasfranz123321/CouchControlHACS` und steht unter MIT-Lizenz.
