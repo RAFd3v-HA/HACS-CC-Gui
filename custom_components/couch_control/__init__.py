@@ -6,7 +6,7 @@ from typing import Any
 
 from homeassistant.components import persistent_notification, websocket_api
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import EVENT_STATE_CHANGED
+from homeassistant.const import EVENT_STATE_CHANGED, Platform
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers import (
     area_registry as ar,
@@ -122,8 +122,11 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         hass.data[DOMAIN]["entities"] = list(resolved)
         hass.data[DOMAIN]["areas"] = stored_areas
         hass.data[DOMAIN]["devices"] = stored_devices
+        hass.data[DOMAIN]["explicit_entities"] = stored_entities
         hass.data[DOMAIN]["entry"] = entry
         
+        await hass.config_entries.async_forward_entry_setups(entry, [Platform.SENSOR])
+
         # Set up WebSocket API
         try:
             await async_setup_websocket_api(hass)
@@ -175,6 +178,7 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         # in HA — they're guarded inside their handlers to no-op
         # when the domain is gone, so they degrade cleanly until HA
         # restarts.
+        await hass.config_entries.async_unload_platforms(entry, [Platform.SENSOR])
         hass.data.pop(DOMAIN, None)
 
         _LOGGER.info("Couch Control Entity Filter unloaded successfully")
