@@ -20,6 +20,7 @@ from .const import (
     CONF_AREAS,
     CONF_DEVICES,
     CONF_ENTITIES,
+    CONF_EXCLUDED_ENTITIES,
     DOMAIN,
     STORAGE_KEY,
     STORAGE_VERSION,
@@ -33,6 +34,7 @@ def _resolve_filter(
     areas: list[str],
     devices: list[str],
     entities: list[str],
+    excluded_entities: list[str] | None = None,
 ) -> set[str]:
     """Resolve area / device / entity selections to a flat entity-id set.
 
@@ -77,6 +79,7 @@ def _resolve_filter(
             if entity_area and entity_area in area_set:
                 resolved.add(entry.entity_id)
 
+    resolved.difference_update(excluded_entities or [])
     return resolved
 from .websocket_api import async_setup_websocket_api
 from .api import async_setup_api
@@ -102,11 +105,13 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
             stored_areas = list(stored.get(CONF_AREAS, []))
             stored_devices = list(stored.get(CONF_DEVICES, []))
             stored_entities = list(stored.get(CONF_ENTITIES, []))
+            stored_excluded_entities = list(stored.get(CONF_EXCLUDED_ENTITIES, []))
         except Exception:
             _LOGGER.exception("Error loading stored selections, using config data")
             stored_areas = list(entry.data.get(CONF_AREAS, []))
             stored_devices = list(entry.data.get(CONF_DEVICES, []))
             stored_entities = list(entry.data.get(CONF_ENTITIES, []))
+            stored_excluded_entities = list(entry.data.get(CONF_EXCLUDED_ENTITIES, []))
 
         # Resolve area + device picks down to a flat entity-id set,
         # unioned with any explicitly-selected entities. The runtime
@@ -118,11 +123,13 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
             areas=stored_areas,
             devices=stored_devices,
             entities=stored_entities,
+            excluded_entities=stored_excluded_entities,
         )
         hass.data[DOMAIN]["entities"] = list(resolved)
         hass.data[DOMAIN]["areas"] = stored_areas
         hass.data[DOMAIN]["devices"] = stored_devices
         hass.data[DOMAIN]["explicit_entities"] = stored_entities
+        hass.data[DOMAIN]["excluded_entities"] = stored_excluded_entities
         hass.data[DOMAIN]["entry"] = entry
         
         await hass.config_entries.async_forward_entry_setups(entry, [Platform.SENSOR])

@@ -1,1 +1,83 @@
-{"config":{"step":{"user":{"title":"1/4 – Bereiche auswählen","description":"Wähle ganze Bereiche aus. Alle zugeordneten Entitäten werden automatisch für die Apple-TV-App freigegeben.","data":{"areas":"Bereiche"}},"devices":{"title":"2/4 – Ganze Geräte auswählen","description":"Wähle zusätzliche Geräte aus, die nicht bereits über einen Bereich enthalten sind. Dieser Schritt ist optional.","data":{"devices":"Zusätzliche Geräte"}},"entities":{"title":"3/4 – Einzelne Entitäten auswählen","description":"Bisher ausgewählt: {area_count} Bereiche und {device_count} ganze Geräte. Ergänze hier nur einzelne Entitäten.","data":{"entities":"Zusätzliche einzelne Entitäten"}},"summary":{"title":"4/4 – Auswahl prüfen","description":"Bereiche ({area_count}): {areas}\n\nGeräte ({device_count}): {devices}\n\nEinzelne Entitäten ({entity_count}): {entities}\n\nInsgesamt werden {resolved_count} Entitäten an die Apple-TV-App freigegeben.","data":{"confirm":"Auswahl speichern"}}},"abort":{"already_configured":"Couch Control ist bereits konfiguriert."}},"options":{"step":{"init":{"title":"Couch-Control-Auswahl ändern – Bereiche","description":"Aktuell: {area_count} Bereiche, {device_count} Geräte, {entity_count} einzelne und {resolved_count} insgesamt freigegebene Entitäten.","data":{"areas":"Ausgewählte Bereiche"}},"devices":{"title":"Couch-Control-Auswahl ändern – Geräte","description":"Wähle zusätzliche vollständige Geräte.","data":{"devices":"Ausgewählte Geräte"}},"entities":{"title":"Couch-Control-Auswahl ändern – Entitäten","description":"Aktuell ausgewählt: {area_count} Bereiche und {device_count} vollständige Geräte.","data":{"entities":"Einzeln ausgewählte Entitäten"}},"summary":{"title":"Geänderte Auswahl prüfen","description":"Bereiche ({area_count}): {areas}\n\nGeräte ({device_count}): {devices}\n\nEinzelne Entitäten ({entity_count}): {entities}\n\nInsgesamt werden {resolved_count} Entitäten an die Apple-TV-App freigegeben.","data":{"confirm":"Änderungen speichern"}}}}}
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "1/5 – Bereiche anhaken",
+        "description": "Alle Bereiche werden als sichtbare Checkliste angezeigt. Ein ausgewählter Bereich gibt automatisch seine zugeordneten Entitäten frei.",
+        "data": {
+          "areas": "Bereiche"
+        }
+      },
+      "devices": {
+        "title": "2/5 – Geräte anhaken",
+        "description": "Alle Geräte sind nach Bereich benannt. Wähle nur zusätzliche vollständige Geräte aus.",
+        "data": {
+          "devices": "Geräte"
+        }
+      },
+      "entities": {
+        "title": "3/5 – Einzelne Entitäten anhaken",
+        "description": "Alle aktiven Entitäten werden mit Bereich, Name, Domain und Entity-ID angezeigt.",
+        "data": {
+          "entities": "Zusätzliche Entitäten"
+        }
+      },
+      "exclusions": {
+        "title": "4/5 – Entitäten ausschließen",
+        "description": "Optional: Hake Entitäten an, die trotz ausgewähltem Bereich oder Gerät nicht an die Apple-TV-App geliefert werden sollen.",
+        "data": {
+          "excluded_entities": "Ausgeschlossene Entitäten"
+        }
+      },
+      "summary": {
+        "title": "5/5 – Auswahl prüfen",
+        "description": "Bereiche ({area_count}): {areas}\n\nGeräte ({device_count}): {devices}\n\nEinzelne Entitäten ({entity_count}): {entities}\n\nAusschlüsse ({excluded_count}): {excluded}\n\nInsgesamt werden {resolved_count} Entitäten an die Apple-TV-App freigegeben.",
+        "data": {
+          "confirm": "Auswahl speichern"
+        }
+      }
+    },
+    "abort": {
+      "already_configured": "Couch Control ist bereits konfiguriert."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "1/5 – Bereiche ändern",
+        "description": "Aktuell sind {resolved_count} Entitäten freigegeben. Alle bisherigen Häkchen sind vorausgewählt.",
+        "data": {
+          "areas": "Bereiche"
+        }
+      },
+      "devices": {
+        "title": "2/5 – Geräte ändern",
+        "description": "Alle bisherigen Geräte sind vorausgewählt.",
+        "data": {
+          "devices": "Geräte"
+        }
+      },
+      "entities": {
+        "title": "3/5 – Einzelne Entitäten ändern",
+        "description": "Alle bisherigen Einzelentitäten sind vorausgewählt.",
+        "data": {
+          "entities": "Zusätzliche Entitäten"
+        }
+      },
+      "exclusions": {
+        "title": "4/5 – Ausschlüsse ändern",
+        "description": "Diese Entitäten werden unabhängig von Bereich oder Gerät nicht ausgeliefert.",
+        "data": {
+          "excluded_entities": "Ausgeschlossene Entitäten"
+        }
+      },
+      "summary": {
+        "title": "5/5 – Änderungen prüfen",
+        "description": "Bereiche ({area_count}): {areas}\n\nGeräte ({device_count}): {devices}\n\nEinzelne Entitäten ({entity_count}): {entities}\n\nAusschlüsse ({excluded_count}): {excluded}\n\nInsgesamt werden {resolved_count} Entitäten an die Apple-TV-App freigegeben.",
+        "data": {
+          "confirm": "Änderungen speichern"
+        }
+      }
+    }
+  }
+}

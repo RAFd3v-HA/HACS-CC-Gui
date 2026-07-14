@@ -5,16 +5,16 @@ from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers import area_registry as ar, device_registry as dr
 from .const import DOMAIN
 async def async_setup_entry(hass,entry,async_add_entities):
-    async_add_entities([SelectionSensor(hass,entry,k) for k in ("areas","devices","explicit_entities","entities")],True)
+    async_add_entities([SelectionSensor(hass,entry,k) for k in ("areas","devices","explicit_entities","excluded_entities","entities")],True)
 class SelectionSensor(SensorEntity):
     _attr_entity_category=EntityCategory.DIAGNOSTIC
     _attr_has_entity_name=True
     def __init__(self,hass,entry,key):
         self.hass=hass; self._key=key
-        self._attr_name={"areas":"Ausgewählte Bereiche","devices":"Ausgewählte Geräte","explicit_entities":"Einzeln ausgewählte Entitäten","entities":"Freigegebene Entitäten gesamt"}[key]
+        self._attr_name={"areas":"Ausgewählte Bereiche","devices":"Ausgewählte Geräte","explicit_entities":"Einzeln ausgewählte Entitäten","excluded_entities":"Ausgeschlossene Entitäten","entities":"Freigegebene Entitäten gesamt"}[key]
         self._attr_unique_id=f"{entry.entry_id}_{key}_count"
-        self._attr_icon={"areas":"mdi:floor-plan","devices":"mdi:devices","explicit_entities":"mdi:format-list-checks","entities":"mdi:television-guide"}[key]
-        self._attr_device_info=DeviceInfo(identifiers={(DOMAIN,entry.entry_id)},name="Couch Control",manufacturer="Couch Control Community Fork",model="Entity Filter GUI",sw_version="1.3.0-beta.5")
+        self._attr_icon={"areas":"mdi:floor-plan","devices":"mdi:devices","explicit_entities":"mdi:format-list-checks","excluded_entities":"mdi:playlist-remove","entities":"mdi:television-guide"}[key]
+        self._attr_device_info=DeviceInfo(identifiers={(DOMAIN,entry.entry_id)},name="Couch Control",manufacturer="Couch Control Community Fork",model="Entity Filter GUI",sw_version="1.3.0-beta.6")
     @property
     def native_value(self): return len(self.hass.data.get(DOMAIN,{}).get(self._key,[]))
     @property

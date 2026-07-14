@@ -1,1 +1,83 @@
-{"config":{"step":{"user":{"title":"Couch Control – Areas","description":"Select complete areas to expose to the Apple TV app.","data":{"areas":"Areas"}},"devices":{"title":"Couch Control – Devices","description":"Select additional complete devices. This step is optional.","data":{"devices":"Devices"}},"entities":{"title":"Couch Control – Individual entities","description":"Selected so far: {area_count} areas and {device_count} devices. Add individual entities here.","data":{"entities":"Additional entities"}}},"abort":{"already_configured":"Couch Control is already configured."}},"options":{"step":{"init":{"title":"Edit Couch Control areas","data":{"areas":"Areas"}},"devices":{"title":"Edit Couch Control devices","data":{"devices":"Devices"}},"entities":{"title":"Edit Couch Control entities","description":"Currently selected: {area_count} areas and {device_count} devices.","data":{"entities":"Additional entities"}}}}}
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "1/5 – Select areas",
+        "description": "All areas are shown as a checklist. Selecting an area automatically exposes its assigned entities.",
+        "data": {
+          "areas": "Areas"
+        }
+      },
+      "devices": {
+        "title": "2/5 – Select devices",
+        "description": "All devices are labeled by area. Select only additional complete devices.",
+        "data": {
+          "devices": "Devices"
+        }
+      },
+      "entities": {
+        "title": "3/5 – Select individual entities",
+        "description": "All active entities are shown with area, name, domain and entity ID.",
+        "data": {
+          "entities": "Additional entities"
+        }
+      },
+      "exclusions": {
+        "title": "4/5 – Exclude entities",
+        "description": "Optional: select entities that must not be sent to the Apple TV app even when included through an area or device.",
+        "data": {
+          "excluded_entities": "Excluded entities"
+        }
+      },
+      "summary": {
+        "title": "5/5 – Review selection",
+        "description": "Areas ({area_count}): {areas}\n\nDevices ({device_count}): {devices}\n\nIndividual entities ({entity_count}): {entities}\n\nExclusions ({excluded_count}): {excluded}\n\nA total of {resolved_count} entities will be exposed to the Apple TV app.",
+        "data": {
+          "confirm": "Save selection"
+        }
+      }
+    },
+    "abort": {
+      "already_configured": "Couch Control is already configured."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "1/5 – Edit areas",
+        "description": "Currently {resolved_count} entities are exposed. Existing selections are preselected.",
+        "data": {
+          "areas": "Areas"
+        }
+      },
+      "devices": {
+        "title": "2/5 – Edit devices",
+        "description": "Existing device selections are preselected.",
+        "data": {
+          "devices": "Devices"
+        }
+      },
+      "entities": {
+        "title": "3/5 – Edit individual entities",
+        "description": "Existing individual selections are preselected.",
+        "data": {
+          "entities": "Additional entities"
+        }
+      },
+      "exclusions": {
+        "title": "4/5 – Edit exclusions",
+        "description": "These entities are never exposed, regardless of area or device selection.",
+        "data": {
+          "excluded_entities": "Excluded entities"
+        }
+      },
+      "summary": {
+        "title": "5/5 – Review changes",
+        "description": "Areas ({area_count}): {areas}\n\nDevices ({device_count}): {devices}\n\nIndividual entities ({entity_count}): {entities}\n\nExclusions ({excluded_count}): {excluded}\n\nA total of {resolved_count} entities will be exposed to the Apple TV app.",
+        "data": {
+          "confirm": "Save changes"
+        }
+      }
+    }
+  }
+}
