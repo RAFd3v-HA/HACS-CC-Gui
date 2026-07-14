@@ -5,7 +5,6 @@ from typing import Any
 import voluptuous as vol
 from homeassistant import config_entries
 from homeassistant.core import callback
-from homeassistant.data_entry_flow import FlowResult
 from homeassistant.helpers import entity_registry as er
 from homeassistant.helpers.selector import (
     AreaSelector, AreaSelectorConfig, DeviceSelector, DeviceSelectorConfig,
@@ -40,7 +39,7 @@ class CouchControlConfigFlow(_SelectionMixin, config_entries.ConfigFlow, domain=
     def __init__(self) -> None:
         self._areas, self._devices, self._entities = [], [], []
 
-    async def async_step_user(self, user_input: dict[str, Any] | None = None) -> FlowResult:
+    async def async_step_user(self, user_input: dict[str, Any] | None = None):
         await self.async_set_unique_id(DOMAIN)
         self._abort_if_unique_id_configured()
         if user_input is not None:
@@ -48,13 +47,13 @@ class CouchControlConfigFlow(_SelectionMixin, config_entries.ConfigFlow, domain=
             return await self.async_step_devices()
         return self.async_show_form("user", vol.Schema({vol.Optional(CONF_AREAS, default=[]): AreaSelector(AreaSelectorConfig(multiple=True))}))
 
-    async def async_step_devices(self, user_input: dict[str, Any] | None = None) -> FlowResult:
+    async def async_step_devices(self, user_input: dict[str, Any] | None = None):
         if user_input is not None:
             self._devices = list(user_input.get(CONF_DEVICES, []))
             return await self.async_step_entities()
         return self.async_show_form("devices", vol.Schema({vol.Optional(CONF_DEVICES, default=[]): DeviceSelector(DeviceSelectorConfig(multiple=True))}))
 
-    async def async_step_entities(self, user_input: dict[str, Any] | None = None) -> FlowResult:
+    async def async_step_entities(self, user_input: dict[str, Any] | None = None):
         if user_input is not None:
             self._entities = _valid_entities(self.hass, list(user_input.get(CONF_ENTITIES, [])))
             await self._save()
@@ -64,11 +63,10 @@ class CouchControlConfigFlow(_SelectionMixin, config_entries.ConfigFlow, domain=
     @staticmethod
     @callback
     def async_get_options_flow(config_entry):
-        return CouchControlOptionsFlow(config_entry)
+        return CouchControlOptionsFlow()
 
 class CouchControlOptionsFlow(_SelectionMixin, config_entries.OptionsFlow):
-    def __init__(self, config_entry) -> None:
-        self.config_entry = config_entry
+    def __init__(self) -> None:
         self._areas, self._devices, self._entities = [], [], []
         self._loaded = False
 
