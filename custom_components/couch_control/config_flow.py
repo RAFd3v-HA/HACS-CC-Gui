@@ -13,6 +13,8 @@ from homeassistant.helpers.selector import (
 from .const import CONF_AREAS, CONF_DEVICES, CONF_ENTITIES, DOMAIN
 from .storage import async_load_entities, async_save_entities
 _LOGGER = logging.getLogger(__name__)
+FLOW_BUILD = "1.3.0-beta.4"
+_LOGGER.info("Loaded Couch Control GUI config flow %s", FLOW_BUILD)
 
 def _valid_entities(hass, values: list[str]) -> list[str]:
     registry = er.async_get(hass)
