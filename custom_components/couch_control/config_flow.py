@@ -45,20 +45,39 @@ class CouchControlConfigFlow(_SelectionMixin, config_entries.ConfigFlow, domain=
         if user_input is not None:
             self._areas = list(user_input.get(CONF_AREAS, []))
             return await self.async_step_devices()
-        return self.async_show_form("user", vol.Schema({vol.Optional(CONF_AREAS, default=[]): AreaSelector(AreaSelectorConfig(multiple=True))}))
+        return self.async_show_form(
+            step_id="user",
+            data_schema=vol.Schema(
+                {vol.Optional(CONF_AREAS, default=[]): AreaSelector(AreaSelectorConfig(multiple=True))}
+            ),
+        )
 
     async def async_step_devices(self, user_input: dict[str, Any] | None = None):
         if user_input is not None:
             self._devices = list(user_input.get(CONF_DEVICES, []))
             return await self.async_step_entities()
-        return self.async_show_form("devices", vol.Schema({vol.Optional(CONF_DEVICES, default=[]): DeviceSelector(DeviceSelectorConfig(multiple=True))}))
+        return self.async_show_form(
+            step_id="devices",
+            data_schema=vol.Schema(
+                {vol.Optional(CONF_DEVICES, default=[]): DeviceSelector(DeviceSelectorConfig(multiple=True))}
+            ),
+        )
 
     async def async_step_entities(self, user_input: dict[str, Any] | None = None):
         if user_input is not None:
             self._entities = _valid_entities(self.hass, list(user_input.get(CONF_ENTITIES, [])))
             await self._save()
             return self.async_create_entry(title="Couch Control Entity Filter", data={CONF_AREAS:self._areas, CONF_DEVICES:self._devices, CONF_ENTITIES:self._entities})
-        return self.async_show_form("entities", vol.Schema({vol.Optional(CONF_ENTITIES, default=[]): EntitySelector(EntitySelectorConfig(multiple=True))}), description_placeholders={"area_count":str(len(self._areas)), "device_count":str(len(self._devices))})
+        return self.async_show_form(
+            step_id="entities",
+            data_schema=vol.Schema(
+                {vol.Optional(CONF_ENTITIES, default=[]): EntitySelector(EntitySelectorConfig(multiple=True))}
+            ),
+            description_placeholders={
+                "area_count": str(len(self._areas)),
+                "device_count": str(len(self._devices)),
+            },
+        )
 
     @staticmethod
     @callback
@@ -83,17 +102,36 @@ class CouchControlOptionsFlow(_SelectionMixin, config_entries.OptionsFlow):
         if user_input is not None:
             self._areas = list(user_input.get(CONF_AREAS, []))
             return await self.async_step_devices()
-        return self.async_show_form("init", vol.Schema({vol.Optional(CONF_AREAS, default=self._areas): AreaSelector(AreaSelectorConfig(multiple=True))}))
+        return self.async_show_form(
+            step_id="init",
+            data_schema=vol.Schema(
+                {vol.Optional(CONF_AREAS, default=self._areas): AreaSelector(AreaSelectorConfig(multiple=True))}
+            ),
+        )
 
     async def async_step_devices(self, user_input=None):
         if user_input is not None:
             self._devices = list(user_input.get(CONF_DEVICES, []))
             return await self.async_step_entities()
-        return self.async_show_form("devices", vol.Schema({vol.Optional(CONF_DEVICES, default=self._devices): DeviceSelector(DeviceSelectorConfig(multiple=True))}))
+        return self.async_show_form(
+            step_id="devices",
+            data_schema=vol.Schema(
+                {vol.Optional(CONF_DEVICES, default=self._devices): DeviceSelector(DeviceSelectorConfig(multiple=True))}
+            ),
+        )
 
     async def async_step_entities(self, user_input=None):
         if user_input is not None:
             self._entities = _valid_entities(self.hass, list(user_input.get(CONF_ENTITIES, [])))
             await self._save()
             return self.async_create_entry(title="", data={CONF_AREAS:self._areas, CONF_DEVICES:self._devices, CONF_ENTITIES:self._entities})
-        return self.async_show_form("entities", vol.Schema({vol.Optional(CONF_ENTITIES, default=self._entities): EntitySelector(EntitySelectorConfig(multiple=True))}), description_placeholders={"area_count":str(len(self._areas)), "device_count":str(len(self._devices))})
+        return self.async_show_form(
+            step_id="entities",
+            data_schema=vol.Schema(
+                {vol.Optional(CONF_ENTITIES, default=self._entities): EntitySelector(EntitySelectorConfig(multiple=True))}
+            ),
+            description_placeholders={
+                "area_count": str(len(self._areas)),
+                "device_count": str(len(self._devices)),
+            },
+        )
