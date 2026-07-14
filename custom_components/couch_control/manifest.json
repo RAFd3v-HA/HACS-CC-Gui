@@ -1,0 +1,12 @@
+{
+  "domain": "couch_control",
+  "name": "Couch Control Entity Filter GUI",
+  "codeowners": ["@lucasfranz"],
+  "config_flow": true,
+  "dependencies": ["websocket_api"],
+  "documentation": "https://github.com/YOUR_GITHUB_NAME/CouchControlHACS-GUI",
+  "integration_type": "service",
+  "iot_class": "local_push",
+  "requirements": [],
+  "version": "1.3.0-beta.1"
+}

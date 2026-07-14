@@ -1,0 +1,24 @@
+add_entity:
+  name: Add Entity to Filter
+  fields:
+    entity_id:
+      required: true
+      selector:
+        entity:
+remove_entity:
+  name: Remove Entity from Filter
+  fields:
+    entity_id:
+      required: true
+      selector:
+        entity:
+set_entities:
+  name: Set Filter Entities
+  fields:
+    entities:
+      required: true
+      selector:
+        entity:
+          multiple: true
+uninstall:
+  name: Uninstall (clean removal)
